@@ -5,7 +5,7 @@ const authentication = document.querySelector(".login");
 if (token !== null && token !== undefined) {
   authentication.innerHTML = "";
   let logOut = document.createElement("span");
-  logOut.innerText = "Logout";
+  logOut.innerText = "logout";
   logOut.addEventListener("click", () => {
     localStorage.removeItem("token");
     window.location.href = "login.html";
