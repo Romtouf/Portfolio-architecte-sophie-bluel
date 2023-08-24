@@ -31,6 +31,10 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
 }
+a {
+	text-decoration: none;
+	color: black;
+}
 ol, ul {
 	list-style: none;
 }
@@ -48,7 +52,7 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
+	max-width: 1440px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
@@ -186,3 +190,453 @@ footer nav ul {
 	margin: 2em
 }
 
+/* Ajout du css pour les boutons filtres */
+
+.filtres {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 37px;
+	gap: 10px;
+	margin-bottom: 50px;
+}
+
+.filtres button {
+	border-radius: 20px;
+	padding: 5px 10px;
+	font-size: 16px;
+	font-weight: 700;
+	background-color:#FFFEF8;
+	color: #1D6154;
+	border: #1D6154 1px solid;
+	cursor: pointer;
+}
+
+.filtres button:active {
+	background-color: #1D6154;
+	color: white;
+}
+
+
+
+/* Mise en forme de la page "Login" */
+
+.formLogin {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.formLogin h2 {
+	margin-top: 150px;
+	margin-bottom: 37px;
+}
+
+.formLogin label {
+	font-family: 'Work Sans', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	text-align: left;
+	margin-bottom: 5px;
+	color: #3D3D3D;
+
+}
+
+.loginEmail {
+	position: relative;
+	left: -172px;
+}
+
+.loginPassword {
+	position: relative;
+	left: -148px;
+}
+
+.formLogin input {
+	width: 379px;
+	height: 51px;
+	margin-bottom: 30px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.formLogin button {
+	margin-bottom: 28px;
+}
+
+.loginConnect {
+	width: 179px;
+	height: 36px;
+	border-radius: 20px;
+	padding: 5px 20px;
+	font-size: 14px;
+	font-weight: 700;
+	background-color: #1D6154;
+	border: #1D6154 1px solid;
+	color: white;
+	;
+}
+
+.formLogin a {
+	color: #3D3D3D;
+	font-size: 14px;
+	font-weight: 500;
+	margin-bottom: 355px;
+}
+
+.login {
+	cursor: pointer;
+}
+
+#connection {
+	cursor: pointer;
+}
+
+footer {
+	margin: 0;
+	background-color: white;
+	width: 100%;
+	height: 60px;
+}
+
+footer li {
+	position: relative;
+	top: 25px;
+}
+
+/* Ajout des modifications de la page d'accueil une fois connecté */
+
+.edition {
+	width: 100%;
+	height: 59px;
+	background-color: black;
+	color: white;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 11px;
+	display: none;
+}
+
+.buttonChanges {
+	color: black;
+	background-color: white;
+	border-radius: 20px;
+	padding: 10px 20px;
+	margin-left: 10px;
+}
+
+.modifMode {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.modifMode i {
+	margin-left: 31px;
+}
+
+.modifier {
+	display: none;
+	margin-top: 9px;
+}
+
+.fa-pen-to-square {
+	font-weight: bold;
+}
+
+/* Construction de la modale */
+
+.lienModal {
+	cursor: pointer;
+}
+
+.modalContainer {
+	display: none;
+	position: fixed;
+	margin: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+
+}
+
+.modalContainer.active {
+	display: block;
+}
+
+.overlay {
+	position: absolute;
+	width: 1440px;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+}
+
+.modal {
+	position: absolute;
+	top: 5%;
+	left: 25%;
+	width: 630px;
+	height: 731px;
+	padding: 25px;
+	border-radius: 10px;
+	background: #fff;
+}
+
+.modalClick {
+	cursor: pointer;
+}
+
+.modal i {
+	position: absolute;
+	font-size: 24px;
+	top: 25px;
+	right: 25px;
+}
+
+h3 {
+	font-size: 26px;
+	font-weight: 400;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+hr {
+	border: none;
+	color: #b3b3b3;
+	width: 420px;
+	border: 1px solid #B3B3B3;
+	position: absolute;
+	top: 620px;
+	left: 130px;
+}
+
+
+.buttonModal {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	bottom: -130px;
+	gap: 20px;
+	
+
+}
+
+.addPhoto {
+	width: 237px;
+	height: 36px;
+	border-radius: 25px;
+	border: none;
+	background-color: #1D6154;
+	color: white;
+	font-size: 14px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+.deleteGallery {
+	width: 230px;
+	height: 17px;
+	color: #D65353;
+	font-size: 14px;
+	font-weight: 400;
+	background: none;
+	border: none;
+	
+
+}
+
+.galleryModal {
+	width: 100%;
+	display: grid;
+	justify-content: center;
+	grid-template-columns: 0fr 0fr 0fr 0fr 0fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+	
+}
+
+.galleryModal img {
+	height: 102px;
+	width: 76px;
+	
+
+}
+
+.galleryModal figcaption, .galleryModal figure {
+	width: 76px;
+}
+
+.divModal {
+	position: relative;
+}
+
+
+
+.fa-trash-can::before {
+	position: absolute;
+	top: -22px;
+	right: -22px;
+	color: white;
+	background-color: black;
+	padding: 5px;
+	border-radius: 5px;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+.fa-arrows-up-down-left-right::before {
+	position: absolute;
+	top: -22px;
+	right: 5px;
+	color: white;
+	background-color: black;
+	padding: 5px;
+	border-radius: 5px;
+	font-size: 17px;
+}
+
+.arrowDisplay {
+	display: none;
+}
+
+/* Modale ajout photo */
+
+.fa-arrow-left::before {
+	position: absolute;
+	left: -627px;
+	cursor: pointer;
+}
+
+.divBlockAjout {
+	width: 420px;
+	height: 169px;	
+	background: #E8F1F6;
+	position: relative;
+	left: 105px;
+}
+
+.fa-image::before {
+	color: #B9C5CC;
+	background: none;
+	font-size: 60px;
+	position: relative;
+	right: 150px;
+}
+
+.buttonAjout {
+	width: 173px;
+	height: 36px;
+	background: #CBD6DC;
+	color: #306685;
+	position: absolute;
+	top: 75px;
+	right: 95px;
+	border-radius: 25px;
+	border: none;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+
+
+#inputImage {
+	opacity: 0;
+	z-index: 2;
+	position: absolute;
+	width: 173px;
+	height: 36px;
+	top: -105px;
+	right: 119px;
+	cursor: pointer;
+	border-radius: 20px;
+}
+
+
+
+.textAjout {
+	position: absolute;
+	top: 40px;
+	right: 40px;
+	width: 94px;
+	font-size: 10px;
+	color: #444444;
+}
+
+.titleAjout {
+	position: absolute;
+	top: 360px;
+	left: 130px;
+	font-weight: 500;
+	font-size: 14px;
+	color: #3D3D3D;
+
+}
+
+.formAjout {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 420px;
+	position: absolute;
+	top: 360px;
+	left: 130px;
+}
+
+.formAjout label {
+	margin-bottom: 10px;
+	font-size: 14px;
+	font-weight: 500;
+}
+.formAjout input, .formAjout select {
+	height: 51px;
+	box-shadow: 0 4px 14px 0 rgba(0, 0, 0, 0.1);
+	border: #FFFFFF;
+}
+
+.labelCategory {
+	margin-top: 30px;
+}
+
+.formAjout input[type="submit"] {
+	width: 237px;
+	height: 36px;
+	background: #A7A7A7;
+	color: #FFFFFF;
+	position: absolute;
+	top: 280px;
+	right: 85px;
+	border-radius: 25px;
+	border: none;
+	font-size: 14px;
+	font-weight: 700;
+	
+}
+
+.preview {
+	width: 129px;
+	height: 169px;
+	position: absolute;
+	left: 150px;
+	object-fit: cover;
+	opacity: 0;
+}
+
+.errorForm {
+	position: absolute;
+	top: 590px;
+	left: 157px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+
+
+
+
+ 
