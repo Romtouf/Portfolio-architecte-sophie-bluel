@@ -1,6 +1,5 @@
 // Récupération des id et token pour confirmer la connexion ou non
 const token = localStorage.getItem("token");
-console.log(token);
 const authentication = document.querySelector(".login");
 if (token !== null && token !== undefined) {
   authentication.innerHTML = "";
@@ -33,6 +32,16 @@ authentication.addEventListener("click", () => {
 // Tableau des works
 let workList = [];
 
+// Ajouter les images via API
+function apiWorks() {
+  return fetch("http://localhost:5678/api/works")
+      .then((response) => response.json())
+      .then((works) => {
+        workList = works;
+      })
+      .catch(() => alert('Error while recovering works'));
+}
+
 // Fonction pour afficher les works dans la galerie
 function afficherImages(works) {
   const galerie = document.querySelector(".gallery");
@@ -53,10 +62,8 @@ function afficherImages(works) {
   });
 }
 
-// Récupération des works pour la modale
-function contenuModal(works) {
+function workListInModal(works) {
   const galleryModal = document.querySelector(".galleryModal");
-
   works.forEach((photo) => {
     let figure = document.createElement("figure");
     let deleteElement = document.createElement("i");
@@ -70,9 +77,9 @@ function contenuModal(works) {
     figure.classList.add("divModal");
     deleteElement.classList.add("fa-solid", "fa-trash-can", "deleteImage");
     arrowElement.classList.add(
-      "fa-solid",
-      "fa-arrows-up-down-left-right",
-      "arrowDisplay"
+        "fa-solid",
+        "fa-arrows-up-down-left-right",
+        "arrowDisplay"
     );
 
     // Évènement au déplacement de la souris pour faire apparaître le logo "4 flèches" indiquant sur quelle image nous nous situons
@@ -83,7 +90,6 @@ function contenuModal(works) {
     // Récupération de l'id des images
     let id = images.id;
     id = photo.id;
-    // console.log(id);
 
     // Ajout évènement au clic sur l'icône avec un fetch Delete sur l'id photo
     deleteElement.addEventListener("click", (e) => {
@@ -99,7 +105,10 @@ function contenuModal(works) {
         if (data.ok) {
           document.querySelector(".galleryModal").innerHTML = " ";
           document.querySelector(".gallery").innerHTML = " ";
-          afficherImages(worksFiltered);
+          apiWorks().then(() => {
+            afficherImages(workList);
+            workListInModal(workList);
+          });
         } else {
           alert("Error");
         }
@@ -113,6 +122,13 @@ function contenuModal(works) {
     figure.appendChild(arrowElement);
     galleryModal.appendChild(figure);
   });
+}
+
+// Récupération des works pour la modale
+function contenuModal(works) {
+  const galleryModal = document.querySelector(".galleryModal");
+
+  workListInModal(works);
 
   // Récupération des éléments du DOM pour créer la modale
   const modal = document.querySelector(".modal");
@@ -221,7 +237,6 @@ function contenuModal(works) {
 
     formAjout.addEventListener("change", () => {
       fileImage = inputImage.files[0];
-      // console.log(fileImage);
       previewImage.src = URL.createObjectURL(fileImage);
       previewImage.style.opacity = "1";
       buttonAjout.style.display = "none";
@@ -241,9 +256,9 @@ function contenuModal(works) {
       // Fonction pour vérifier si le formulaire est correctement rempli et activer le bouton "Valider"
 
       if (
-        inputImage.value !== "" &&
-        titleInput.value !== "" &&
-        categorySelect.value !== ""
+          inputImage.value !== "" &&
+          titleInput.value !== "" &&
+          categorySelect.value !== ""
       ) {
         buttonValider.style.background = "#1D6154";
         buttonValider.disabled = false;
@@ -260,18 +275,14 @@ function contenuModal(works) {
       e.preventDefault();
 
       const imageValue = inputImage.files[0];
-      console.log(imageValue);
       const titleValue = titleInput.value;
-      console.log(titleValue);
       const categoryValue = categorySelect.value;
-      console.log(categoryValue);
 
       const formData = new FormData();
 
       formData.append("title", titleValue);
       formData.append("category", categoryValue);
       formData.append("image", imageValue);
-      console.log(formData);
 
       fetch("http://localhost:5678/api/works", {
         method: "POST",
@@ -280,20 +291,29 @@ function contenuModal(works) {
         },
         body: formData,
       })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.token === token) {
-            console.log(data.token);
-            alert("Image envoyée");
-          } else {
+          .then((response) => response.json())
+          .then(() => {
+              document.querySelector(".galleryModal").innerHTML = " ";
+              document.querySelector(".gallery").innerHTML = " ";
+              apiWorks().then(() => {
+                afficherImages(workList);
+                workListInModal(workList);
+              });
+              previewImage.src = URL.revokeObjectURL(fileImage);
+              previewImage.style.opacity = "0";
+              buttonAjout.style.display = "";
+              titleInput.value = "";
+              categorySelect.value = "";
+              toggleModal();
+          })
+          .catch(() => {
             alert("Erreur lors de l'envoi des données");
             previewImage.src = URL.revokeObjectURL(fileImage);
             previewImage.style.opacity = "0";
             buttonAjout.style.display = "";
             titleInput.value = "";
             categorySelect.value = "";
-          }
-        });
+          });
     });
 
     // Au clic sur la flèche, retour sur la modale "Galerie photo"
@@ -334,7 +354,6 @@ function contenuModal(works) {
 function sortByCategory(categoryId) {
   document.querySelector(".gallery").innerHTML = " ";
   let worksFiltered = workList.filter((work) => work.categoryId === categoryId);
-  // console.log(worksFiltered);
   afficherImages(worksFiltered);
 }
 
@@ -348,7 +367,6 @@ fetch("http://localhost:5678/api/categories")
     let buttonTous = document.createElement("button");
     buttonTous.innerText = "Tous";
     filtres.appendChild(buttonTous);
-    // console.log(categories);
     buttonTous.addEventListener("click", () => {
       document.querySelector(".gallery").innerHTML = " ";
       afficherImages(workList);
@@ -367,17 +385,11 @@ fetch("http://localhost:5678/api/categories")
     });
   });
 
-// Ajouter les images via API
-function apiWorks() {
-  fetch("http://localhost:5678/api/works")
-    .then((response) => response.json())
-    .then((works) => {
-      workList = works;
-      afficherImages(works);
-      contenuModal(works);
+apiWorks()
+    .then(() => {
+      afficherImages(workList);
+      contenuModal(workList);
     });
-}
-apiWorks();
 
 // Création de la modale
 const modalContainer = document.querySelector(".modalContainer");
