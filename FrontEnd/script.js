@@ -197,7 +197,7 @@ function contenuModal(works) {
     categorySelect.id = "selectCategory";
     categorySelect.name = "category";
    
-    // Récupéation des catégories pour le formulaire.
+    // Récupération des catégories pour le formulaire.
     fetch("http://localhost:5678/api/categories")
     .then((response) => response.json())
     .then((categories) => {
