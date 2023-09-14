@@ -62,6 +62,7 @@ function afficherImages(works) {
   });
 }
 
+// Fonction pour afficher les travaux dans la modale
 function workListInModal(works) {
   const galleryModal = document.querySelector(".galleryModal");
   works.forEach((photo) => {
@@ -195,27 +196,24 @@ function contenuModal(works) {
     const categorySelect = document.createElement("select");
     categorySelect.id = "selectCategory";
     categorySelect.name = "category";
-
-    const optionCategory = document.createElement("option");
+   
+    // Récupéation des catégories pour le formulaire.
+    fetch("http://localhost:5678/api/categories")
+    .then((response) => response.json())
+    .then((categories) => {
+    if (categorySelect.options.length === 0) {
+      const optionCategory = document.createElement("option");
     optionCategory.value = "";
-
-    const optionCategoryObjects = document.createElement("option");
-    optionCategoryObjects.classList.add("selectCategoryElement");
-    optionCategoryObjects.id = "objets";
-    optionCategoryObjects.value = "1";
-    optionCategoryObjects.textContent = "Objets";
-
-    const optionCategoryAppartments = document.createElement("option");
-    optionCategoryAppartments.classList.add("selectCategoryElement");
-    optionCategoryAppartments.id = "appartements";
-    optionCategoryAppartments.value = "2";
-    optionCategoryAppartments.textContent = "Appartements";
-
-    const optionCategoryHotels = document.createElement("option");
-    optionCategoryHotels.classList.add("selectCategoryElement");
-    optionCategoryHotels.id = "hotels&restaurants";
-    optionCategoryHotels.value = "3";
-    optionCategoryHotels.textContent = "Hôtels & restaurants";
+    categorySelect.appendChild(optionCategory)
+}
+  categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.textContent = category.name;
+    option.id = category.id;
+    categorySelect.appendChild(option)
+  })
+    });
+    
 
     // Création du bouton de validation du formulaire
     const buttonValider = document.createElement("input");
@@ -341,11 +339,6 @@ function contenuModal(works) {
     formAjout.appendChild(categoryLabel);
     formAjout.appendChild(categorySelect);
     formAjout.appendChild(buttonValider);
-    categorySelect.appendChild(optionCategory);
-    categorySelect.appendChild(optionCategoryObjects);
-    categorySelect.appendChild(optionCategoryAppartments);
-    categorySelect.appendChild(optionCategoryHotels);
-
     modal.appendChild(blockAjout);
   });
 }
